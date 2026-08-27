@@ -9,43 +9,6 @@ import {
   userIdParamSchema,
 } from "./message.schema.js";
 
-export const getPublicMessages = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
-  try {
-    const query = messagePaginationSchema.parse(req.query);
-    const result = await messageService.getPublicMessages(query);
-    res.status(200).json({
-      success: true,
-      data: result.messages,
-      pagination: result.pagination,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const sendPublicMessage = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
-  try {
-    const data = sendMessageSchema.parse(req.body);
-    const message = await messageService.sendPublicMessage(
-      res.locals.user.id,
-      data,
-    );
-    res
-      .status(201)
-      .json({ success: true, message: "Message sent", data: message });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const getPrivateMessages = async (
   req: Request,
   res: Response,

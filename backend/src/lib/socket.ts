@@ -39,7 +39,8 @@ export const initializeSocket = (httpServer: HttpServer) => {
         where: { id: payload.userId },
         select: { id: true, deletedAt: true },
       });
-      if (!user || user.deletedAt) return next(new Error("Authentication required"));
+      if (!user || user.deletedAt)
+        return next(new Error("Authentication required"));
 
       socket.data.userId = user.id;
       next();
@@ -49,41 +50,43 @@ export const initializeSocket = (httpServer: HttpServer) => {
   });
 
   io.on("connection", (socket) => {
-    socket.join("public");
     socket.join(`user:${socket.data.userId as string}`);
 
-    socket.on("conversation:join", async (conversationId: unknown, acknowledge?: (result: { success: boolean }) => void) => {
-      if (typeof conversationId !== "string") {
-        acknowledge?.({ success: false });
-        return;
-      }
+    socket.on(
+      "conversation:join",
+      async (
+        conversationId: unknown,
+        acknowledge?: (result: { success: boolean }) => void,
+      ) => {
+        if (typeof conversationId !== "string") {
+          acknowledge?.({ success: false });
+          return;
+        }
 
-      const conversation = await prisma.conversation.findFirst({
-        where: {
-          id: conversationId,
-          OR: [
-            { type: "PUBLIC" },
-            { members: { some: { userId: socket.data.userId as string } } },
-          ],
-        },
-        select: { id: true },
-      });
+        const conversation = await prisma.conversation.findFirst({
+          where: {
+            id: conversationId,
+            members: {
+              some: {
+                userId: socket.data.userId as string,
+              },
+            },
+          },
+          select: { id: true },
+        });
 
-      if (!conversation) {
-        acknowledge?.({ success: false });
-        return;
-      }
+        if (!conversation) {
+          acknowledge?.({ success: false });
+          return;
+        }
 
-      socket.join(`conversation:${conversation.id}`);
-      acknowledge?.({ success: true });
-    });
+        socket.join(`conversation:${conversation.id}`);
+        acknowledge?.({ success: true });
+      },
+    );
   });
 
   return io;
-};
-
-export const emitPublicMessage = (message: unknown) => {
-  io?.to("public").emit("public-message:new", message);
 };
 
 export const emitDirectMessage = (
