@@ -1,25 +1,33 @@
 import { Button, Input } from "@/shared/ui";
 
-type LoginFormProps = {
-  onSignup: () => void;
+type SignupFormProps = {
+  onLogin: () => void;
 };
 
-const LoginForm = ({ onSignup }: LoginFormProps) => {
+const SignupForm = ({ onLogin }: SignupFormProps) => {
   return (
     <form className="flex w-full max-w-md flex-col rounded-[10px] bg-surface p-6">
-      <h2 className="text-2xl font-medium">Sign In</h2>
+      <h2 className="text-2xl font-medium">Create Account</h2>
 
       <p className="mb-8 mt-2 text-sm text-text/60">
-        Enter your credentials to access UniRyde
+        Enter your details to start using UniRyde
       </p>
 
       <div className="flex flex-col gap-4">
+        <Input
+          id="username"
+          name="username"
+          type="text"
+          label="Username"
+          placeholder="John"
+        />
+
         <Input
           id="email"
           name="email"
           type="email"
           label="Email"
-          placeholder="Your email address"
+          placeholder="name@example.com"
         />
 
         <Input
@@ -27,9 +35,17 @@ const LoginForm = ({ onSignup }: LoginFormProps) => {
           name="password"
           type="password"
           label="Password"
-          placeholder="Your password"
+          placeholder="New Password"
         />
-        <Button className="mt-2">Login</Button>
+
+        <Input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          label="Confirm Password"
+          placeholder="Confirm Password"
+        />
+        <Button className="mt-2">Create Account</Button>
       </div>
 
       {/* OR */}
@@ -64,18 +80,18 @@ const LoginForm = ({ onSignup }: LoginFormProps) => {
 
       {/* Login */}
       <div className="mt-4 flex items-center justify-center gap-2 text-sm">
-        <p className="text-text/60">{`Don't Have An Account?`}</p>
+        <p className="text-text/60">Already Have An Account?</p>
 
         <button
           type="button"
-          onClick={onSignup}
+          onClick={onLogin}
           className="text-primary hover:underline cursor-pointer"
         >
-          Create One
+          Login
         </button>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default SignupForm;

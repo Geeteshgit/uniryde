@@ -1,23 +1,26 @@
-import FeatureGrid from "./FeatureGrid";
+import { Button } from "@/shared/ui";
+import Link from "next/link";
+import "remixicon/fonts/remixicon.css";
 
 export default function LandingHero() {
   return (
-    <section className="px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        {/* Intro */}
-        <div className="my-6 flex flex-col items-center gap-5 text-center sm:my-10">
-          <h1 className="text-3xl font-medium sm:text-4xl lg:text-[2.5rem]">
-            Welcome To Uni
-            <span className="text-primary">Ryde</span>
-          </h1>
+    <section>
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 justify-center py-12 sm:py-16 px-4 sm:px-8 text-center">
+        <h1 className="max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          Find students in your uni
+          <br className="hidden sm:block" />
+          <span className="text-primary"> going your way.</span>
+        </h1>
 
-          <p className="max-w-xl text-base font-light text-muted sm:text-lg">
-            The All-In-One solution to all your problems within your campus!
-          </p>
-        </div>
-
-        {/* Features */}
-        <FeatureGrid />
+        <p className="max-w-xl text-sm leading-6 text-white/50 sm:text-base">
+          UniRyde makes getting to campus easier. Find a carpool, connect with
+          students, and coordinate your ride through chat.
+        </p>
+        <Button>
+          <Link href="/auth">
+            Get started <i className="ri-arrow-right-line text-base" />
+          </Link>
+        </Button>
       </div>
     </section>
   );

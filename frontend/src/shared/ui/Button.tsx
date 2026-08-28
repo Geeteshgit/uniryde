@@ -16,7 +16,7 @@ const variantStyles = {
 
 const sizeStyles = {
   sm: "px-3 py-1.5 text-xs",
-  md: "px-4 py-2 text-sm",
+  md: "px-4 py-2 text-base",
   lg: "px-5 py-2.5 text-base",
 };
 
@@ -40,6 +40,7 @@ export function Button({
         active:scale-[0.98]
         disabled:cursor-not-allowed
         disabled:opacity-50
+        cursor-pointer
         ${variantStyles[variant]}
         ${sizeStyles[size]}
         ${className}

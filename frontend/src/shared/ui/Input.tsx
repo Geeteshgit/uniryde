@@ -26,14 +26,14 @@ export function Input({
           w-full
           rounded-md
           border
-          bg-surface
+          bg-elevated
           px-3
           py-2.5
           text-sm
           text-text
           outline-none
           placeholder:text-muted
-          transition
+          transition-colors
           focus:border-primary
           ${error ? "border-red-500" : "border-border"}
           ${className}
