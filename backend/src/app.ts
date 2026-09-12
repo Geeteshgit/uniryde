@@ -38,7 +38,7 @@ app.use("/api/messages", messageRoutes);
 app.get("/api/health", (_req, res) => {
   return res.status(200).json({
     success: true,
-    message: "CampusHive API is running",
+    message: "UniRyde API is running",
   });
 });
 

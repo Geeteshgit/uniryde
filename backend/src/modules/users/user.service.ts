@@ -172,7 +172,7 @@ export const deleteUserById = async (userId: string) => {
         where: { id: userId },
         data: {
           username: `deleted_${deletedIdentifier}`,
-          email: `deleted+${deletedIdentifier}@campushive.invalid`,
+          email: `deleted+${deletedIdentifier}@uniryde.invalid`,
           password: null,
           profilePhotoUrl: null,
           profilePhotoId: null,
